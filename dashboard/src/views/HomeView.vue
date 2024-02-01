@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import request  from "@/utils/request";
+import TheWelcome from '@/components/TheWelcome.vue'
 </script>
 
 <template>
-  控制台
+  <main>
+    <TheWelcome />
+  </main>
 </template>
-<style lang="scss" scoped>
-
-</style> 

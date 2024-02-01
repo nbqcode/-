@@ -1,35 +1,23 @@
-import { createRouter, createWebHistory } from "vue-router";
-import Layout from "@/views/layout/index.vue";
-const pages = import.meta.glob("@/views/**/*.vue");
-const auto_route = [];
-for (const [path,component] of Object.entries(pages)) {
-  auto_route.push({
-    name: Symbol('com_name'),
-    path,
-    component
-    })
-}
-console.log(auto_route);
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "home",
-      meta: {
-        title: "首页",
-      },
-      component: Layout,
-      redirect:"/console",
-      children: [
-        {
-          path: '/console',
-          name: "console",
-          component:()=>import("@/views/HomeView.vue")
-        }
-      ]
+      path: '/',
+      name: 'home',
+      component: HomeView
     },
-  ],
-});
-export default router;
+    {
+      path: '/about',
+      name: 'about',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AboutView.vue')
+    }
+  ]
+})
+
+export default router
