@@ -1,11 +1,26 @@
+<script lang="ts" setup>
+interface MenuItem{
+    title: string
+    path: string
+    icon?:string
+    children?:Array<MenuItem>
+}
+
+defineProps<{
+    option:Array<MenuItem>
+}>()
+defineOptions({
+    name:"NavMenu"
+})
+</script>
 <template>
-    <ElMenuItem>控制台</ElMenuItem>
-    <ElSubMenu>
+    <template v-for="item in option">
+    <ElSubMenu v-if="item.children?.length" :index="item.path">
         <template #title>
-            权限管理
+            {{ item.title }}
         </template>
-        <ElMenuItem>管理员</ElMenuItem>
-        <ElMenuItem>系统菜单</ElMenuItem>
-        <ElMenuItem>角色</ElMenuItem>
+        <NavMenu :option="item.children"></NavMenu>
     </ElSubMenu>
+    <ElMenuItem v-else :index="item.path">{{ item.title }}</ElMenuItem>
+    </template>
 </template>
